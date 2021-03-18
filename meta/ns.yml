@@ -1,0 +1,15 @@
+userClass: user
+codeName: MyApp
+template:
+  dir: /home/yisroel/packages/packrat-ts-all/packrat
+  name: null
+  version: 1
+starter: /home/yisroel/packages/roving-reporter-all/roving-reporter.starter
+general:
+  packageName: roving-reporter
+  author: YizYah
+  owner: YizYah
+  description: prompts the user to fill out a form based on a json of fields
+  repositoryName: roving-reporter
+  license: MIT
+  multi: false

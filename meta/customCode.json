@@ -1,0 +1,39 @@
+{
+  "addedCode": {
+    "standard": {
+      ".eslintrc.js": {
+        "path": ".eslintrc.js",
+        "lintRules": "\n        \"no-console\": [\"error\"],\n        \"@typescript-eslint/no-var-requires\": \"off\",\n        \"@typescript-eslint/explicit-module-boundary-types\": \"off\",\n        \"@typescript-eslint/ban-types\": \"off\",\n        \"@typescript-eslint/no-explicit-any\":\"off\",\n        \"@typescript-eslint/ban-ts-comment\": \"off\"\n        "
+      },
+      ".gitignore": {
+        "path": ".gitignore",
+        "extra": "\n"
+      },
+      ".nycrc.yml": {
+        "path": ".nycrc.yml",
+        "testCoverageThresholds": "\ncheck-coverage: true\nbranches: 50\nlines: 60\nfunctions: 40\nstatements: 60\n"
+      },
+      "README.md": {
+        "path": "README.md",
+        "beginning": "\n",
+        "description": "\nroving-reporter\n======\nprompts the user to fill out a form based on a json of fields.\n",
+        "afterDescription": "\n",
+        "badges": "\n\n[//]: # ( ns__start_section usageSection )\n\n[![codecov](https://codecov.io/gh/YizYah/roving-reporter/branch/main/graph/badge.svg?token=019QO4XK1Z)](https://codecov.io/gh/YizYah/roving-reporter)\n[![Version](https://img.shields.io/npm/v/roving-reporter.svg)](https://npmjs.org/package/roving-reporter)\n[![Downloads/week](https://img.shields.io/npm/dw/roving-reporter.svg)](https://npmjs.org/package/roving-reporter)\n[![License](https://img.shields.io/npm/l/roving-reporter.svg)](https://github.com/YizYah/roving-reporter/blob/master/package.json)\n\n[![Geenee](https://img.shields.io/badge/maintained%20by-geenee-brightgreen)](https://npmjs.org/package/geenee)\n[![Template](https://img.shields.io/badge/template-ts--packrat-blue)](https://npmjs.org/package/ts-packrat)\n",
+        "APIIntro": "\n# API\n",
+        "constantsIntro": "\n## General Constants and Commands\n"
+      },
+      "src/index.ts": {
+        "path": "src/index.ts",
+        "beginning": "\nimport {createSpecElement} from './custom/specs/specCreation/createSpecElement'\n",
+        "export": "\n// replace this with your own export\nmodule.exports = createSpecElement\n"
+      },
+      "test/index.test.ts": {
+        "path": "test/index.test.ts",
+        "customImports": "\n",
+        "general": "\ntest('general', t => {\n  // replace with whatever you'd like.  To start over with the default, remove everything including the\n  t.not(typeof output, \"undefined\")\n});\n"
+      }
+    }
+  },
+  "replacedCode": {},
+  "removedCode": {}
+}
