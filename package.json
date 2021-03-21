@@ -1,7 +1,7 @@
 {
-  "name": "roving-reporter.starter",
+  "name": "roving-reporter",
   "version": "1.0.0",
-  "description": "",
+  "description": "prompts the user to fill out a form using inquirer based on a json",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
