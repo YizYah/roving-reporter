@@ -2,20 +2,24 @@
   "name": "roving-reporter",
   "version": "1.0.0",
   "description": "prompts the user to fill out a form using inquirer based on a json",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "build": "tsc",
     "commit": "git-cz",
     "lint": "eslint \"src/**/*.ts\"",
     "lintfix": "eslint \"src/**/*.ts\" --fix",
     "test": "ava",
-    "posttest": "npm run view-coverage && npm run report && npm run lint",
+    "realposttest": "npm run view-coverage && npm run report && npm run lint",
+    "posttest": "npm run report && npm run lint",
     "prepack": "rm -rf lib && tsc -b",
     "report": "nyc report --reporter=json",
     "semantic-release": "semantic-release",
     "view-coverage": "nyc --extension .ts ava --forbid-only"
   },
-  "keywords": [],
+  "keywords": [
+    "ts-packrat",
+    "geenee"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -52,6 +56,10 @@
       "ts-node/register"
     ]
   },
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
