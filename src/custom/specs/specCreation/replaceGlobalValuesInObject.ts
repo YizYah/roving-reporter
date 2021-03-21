@@ -25,7 +25,6 @@ function replaceGlobalObjectValues(
   ) {
     if (objectName === globalObjects.ANSWERS) return answers[key]
     if (objectName === globalObjects.SESSION) return session[key]
-    // if (objectName === globalObjects.SETTINGS) return nsInfo[key]
   })
 
   return newValue

@@ -23,7 +23,7 @@ const sampleConfigGeneral={
   },
   "description": {
     "type": "string",
-    "required": false,
+    "required": "__session.falsy__",
     "description": "one liner about what the cli does"
   },
   "fast": {
@@ -36,9 +36,11 @@ const sampleConfigGeneral={
     "type": "boolean",
     "default": "__session.isSlowDefault__"
   },
-  "nothing": {
-    "type": "string",
-    "required": "true",
+  "empty": {
+    "type":"string",
+  },
+  "list": {
+    "type":"list"
   }
 }
 
@@ -49,20 +51,17 @@ test('createSpecElement', async t => {
     'a simple test', // description
     'y', // fast
     'y', // slow
-    '', // nothing, first time
-    'foo', // nothing, second time
+    '', //empty
+    'something', //list
   ]
   await userSession(userAnswers)
   await createSpecElement(null) // tests null/missing params
 
-  stdout.start()
   const output = await createSpecElement(sampleConfigGeneral,{
     userName: 'Borris',
     isSlowDefault: 'true',
+    falsy: 'false',
   },)
-  stdout.stop()
-  t.regex(stdout.output, /nothing is required. Please enter value/)
-      //make sure prompting fpr a new value after none is entered
 
   t.deepEqual(output, {
     "author":"freddie",
@@ -70,6 +69,35 @@ test('createSpecElement', async t => {
     "description":"a simple test",
     "fast": true,
     "slow": true,
-    'nothing': "foo",
   })
 });
+
+// const secondConfig={
+//   "noSession": {
+//     "type": "string",
+//   },
+//   "nothing": {
+//     "type": "string",
+//     "required": "true",
+//   }
+// }
+//
+// test('no session passed in', async t => {
+//   const userAnswers = [
+//     'blah', // noSession
+//     '', // nothing, first time
+//     'foo', // nothing, second time
+//   ]
+//   await userSession(userAnswers)
+//   stdout.start()
+//   const output = await createSpecElement(secondConfig) // no session
+//   stdout.stop()
+//   t.regex(stdout.output, /nothing is required. Please enter value/)
+//   //make sure prompting fpr a new value after none is entered
+//
+//   t.deepEqual(output, {
+//     "noSession":"blah",
+//     'nothing': "foo",
+//   })
+// });
+//

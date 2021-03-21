@@ -6,6 +6,10 @@ test('createSpecElement', async t => {
   t.is(value,true)
   value = simpleValueEdit('boolean','false')
   t.is(value,false)
+  value = simpleValueEdit('any',false)
+  t.is(value,false)
+  value = simpleValueEdit('string','')
+  t.is(value,null)
 
   const error = t.throws(() => {
     simpleValueEdit('boolean','neitherHitherNorThither')
