@@ -1,10 +1,7 @@
-import test from 'ava'
-
-import { stdin } from 'mock-stdin'
-import {createSpecElement} from '../../src/custom/specs/specCreation/createSpecElement'
-
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
-const io = stdin()
+import test from 'ava';
+import { createSpecElement } from '../../src/custom/specs/specCreation/createSpecElement';
+import { userSession } from './mock-user';
+const {stdout} = require('stdout-stderr')
 /*
   We have to take a sample config element, and be able to get it converted to
   an appropriate json for the specs.
@@ -21,31 +18,58 @@ const sampleConfigGeneral={
     "type": "string",
     "required": true,
     "description": "owner of the GitHub repo",
-    "default": "__answers.author__"
+    "default": "__answers.author__",
+    "choices": ["me","you","someone else"]
   },
-  // "description": {
-  //   "type": "string",
-  //   "required": false,
-  //   "description": "one liner about what the cli does"
-  // },
-  // "multi": {
-  //   "type": "boolean",
-  //   "required": false,
-  //   "description": "true if multiple constants are named.  false means that __answers.packageName__ exports a single constant directly",
-  //   "default": true
-  // }
+  "description": {
+    "type": "string",
+    "required": false,
+    "description": "one liner about what the cli does"
+  },
+  "fast": {
+    "type": "boolean",
+    "required": false,
+    "description": "does it fly?  false means that __answers.packageName__ exports a single constant directly",
+    "default": true
+  },
+  "slow": {
+    "type": "boolean",
+    "default": "__session.isSlowDefault__"
+  },
+  "nothing": {
+    "type": "string",
+    "required": "true",
+  }
 }
 
 test('createSpecElement', async t => {
-  const sendKeystrokes = async () => {
-    io.send('jones\n')
-    await delay(10)
-    io.send('foo\n')
-    await delay(10)
-  }
-  setTimeout(() => sendKeystrokes().then(), 5)
+  const userAnswers = [
+    'freddie', // author
+    '2', // owner
+    'a simple test', // description
+    'y', // fast
+    'y', // slow
+    '', // nothing, first time
+    'foo', // nothing, second time
+  ]
+  await userSession(userAnswers)
+  await createSpecElement(null) // tests null/missing params
 
-  const output = await createSpecElement(sampleConfigGeneral,{userName: 'Borris'},)
-  console.log(`output=${JSON.stringify(output)}`)
-  t.is(1, 1)
+  stdout.start()
+  const output = await createSpecElement(sampleConfigGeneral,{
+    userName: 'Borris',
+    isSlowDefault: 'true',
+  },)
+  stdout.stop()
+  t.regex(stdout.output, /nothing is required. Please enter value/)
+      //make sure prompting fpr a new value after none is entered
+
+  t.deepEqual(output, {
+    "author":"freddie",
+    "owner":"you",
+    "description":"a simple test",
+    "fast": true,
+    "slow": true,
+    'nothing': "foo",
+  })
 });
